@@ -1,3 +1,8 @@
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class Employee{
     int id;
     String name;
@@ -74,6 +79,16 @@ public class Employee{
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    public Map<String, Long> employeeByDepartment(List<Employee> listRec){
+
+        return listRec.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.counting()));
+    }
+
+    public Map<String, Set<String>> namesEmployeeByDepartment(List<Employee> listRec){
+
+        return listRec.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.mapping(Employee::getName, Collectors.toSet())));
     }
 
     @Override
